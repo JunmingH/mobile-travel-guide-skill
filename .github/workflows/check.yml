@@ -27,3 +27,9 @@ jobs:
       - run: python vendor/travel-guide/scripts/audit_skill_consistency.py
       - run: python tests/make_fixture.py "${RUNNER_TEMP}/mobile-guide-fixture"
       - run: node tests/run_browser_tests.mjs "${RUNNER_TEMP}/mobile-guide-fixture"
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: fictional-browser-diagnostics
+          path: ${{ runner.temp }}/mobile-guide-fixture/qa
+          retention-days: 7

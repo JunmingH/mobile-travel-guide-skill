@@ -281,16 +281,16 @@ fs.writeFileSync(fixturePDF, pdf);
     });
     await run('embedded_images_and_widths', async () => {
       const decoded = await page.evaluate(async () => { const srcs = [...new Set([...document.images].map(e => e.src).filter(Boolean))]; const rows = await Promise.all(srcs.map(async src => { const im = new Image(); im.src = src; try { await Promise.race([im.decode(), new Promise((_, reject) => setTimeout(() => reject(Error('decode timeout')), 7000))]); return { ok: im.naturalWidth > 0, width: im.naturalWidth, scheme: src.split(':')[0] }; } catch (e) { return { ok: false, scheme: src.split(':')[0], error: e.message }; } })); return { count: rows.length, failed: rows.filter(r => !r.ok), schemes: [...new Set(rows.map(r => r.scheme))] }; });
-      assert(decoded.failed.length === 0, 'embedded image decode failures');
+      assert(decoded.failed.length === 0, 'embedded image decode failures: ' + JSON.stringify(decoded));
       const widths = [];
-      for (const width of [320,375,390,430]) { await page.setViewportSize({ width, height: 844 }); await settleUI(); const row = await page.evaluate(key => ({ width: innerWidth, scroll: document.documentElement.scrollWidth })); widths.push(row); assert(row.scroll <= row.width, 'body horizontal overflow at ' + width); }
+      for (const width of [320,375,390,430]) { await page.setViewportSize({ width, height: 844 }); await settleUI(); const row = await page.evaluate(() => ({ width: innerWidth, scroll: document.documentElement.scrollWidth })); widths.push(row); assert(row.scroll <= row.width, 'body horizontal overflow at ' + width + ': ' + JSON.stringify(row)); }
       await page.setViewportSize({ width:390, height:844 }); return { decoded, widths };
     });
     result.finished_at = new Date().toISOString();
     result.sha256_after = hash(fs.readFileSync(file));
     result.source_changed_during_run = result.sha256_after !== result.sha256;
     result.status = result.checks.length && result.checks.every(c => c.status === 'passed') && !result.page_errors.length && !result.unexpected_popups.length && !result.source_changed_during_run ? 'passed' : 'failed';
-    save(); console.log(JSON.stringify({ status: result.status, checks: result.checks.map(c => ({ id:c.id, status:c.status })), page_errors: result.page_errors, report:reportPath }, null, 2));
+    save(); console.log(JSON.stringify({ status: result.status, checks: result.checks.map(c => ({ id:c.id, status:c.status, error:c.error })), page_errors: result.page_errors, report:reportPath }, null, 2));
     if (result.status !== 'passed') process.exitCode = 1;
     await context.close();
   } finally { await browser.close(); }
