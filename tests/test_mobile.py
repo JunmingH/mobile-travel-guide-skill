@@ -118,5 +118,13 @@ class MobileWorkflowTests(unittest.TestCase):
                                             'public':dict(route='test',steps=['test'],duration_note='test',assessment='test'),'source_urls':['javascript:alert(1)']}}]
         with self.assertRaisesRegex(ValueError,'HTTP'):validate_mobile_content(p)
 
+    def test_browser_upload_png_has_valid_crc(self):
+        import re,base64,io
+        from PIL import Image
+        source=(ROOT/'scripts/check_features.cjs').read_text()
+        encoded=re.search(r"fs.writeFileSync\(fixturePNG, Buffer.from\('([^']+)'",source).group(1)
+        raw=base64.b64decode(encoded,validate=True)
+        image=Image.open(io.BytesIO(raw));self.assertEqual(image.size,(1,1));image.verify()
+
 
 if __name__=='__main__':unittest.main()

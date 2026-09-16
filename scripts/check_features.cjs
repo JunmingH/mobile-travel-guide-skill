@@ -36,7 +36,7 @@ const save = () => fs.writeFileSync(reportPath, JSON.stringify(result, null, 2) 
 const ledgerKey = profile.handbook_id + '-shared-ledger-local-v1';
 const fixturePNG = path.join(qa, `${prefix}-upload.png`);
 // Test fixture only; an opaque 1×1 PNG gives the upload/IndexedDB path valid bytes.
-fs.writeFileSync(fixturePNG, Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+j+WQAAAAASUVORK5CYII=', 'base64'));
+fs.writeFileSync(fixturePNG, Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAADElEQVR4nGOQtDEAAAD3AIajSrogAAAAAElFTkSuQmCC', 'base64'));
 const fixturePDF = path.join(qa, `${prefix}-ticket.pdf`);
 const pdfObjects = ['<< /Type /Catalog /Pages 2 0 R >>','<< /Type /Pages /Kids [3 0 R] /Count 1 >>','<< /Type /Page /Parent 2 0 R /MediaBox [0 0 300 200] /Resources << /Font << /F1 4 0 R >> >> /Contents 5 0 R >>','<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>'];
 const stream = 'BT /F1 16 Tf 30 150 Td (QA local ticket - no reservation) Tj ET';
