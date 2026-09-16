@@ -1,0 +1,4 @@
+interface:
+  display_name: "旅行手册"
+  short_description: "生成个性化旅行手册、每日地图和旅行记账网页"
+  default_prompt: "使用 $build-personalized-travel-guide-open-source 开始制作旅行手册。新手册先打开需求问卷；收到需求后先给逐日行程草案，等我确认再生成完整网页。"

@@ -1,0 +1,4 @@
+interface:
+  display_name: "手机旅行手册 · 离线 PWA"
+  short_description: "把旅行计划制作成完整手机 PWA，保留离线交互、记账、附件与加密发布"
+  default_prompt: "使用 $build-mobile-travel-guide，把我的旅行计划制作或更新为完整的 iPhone 离线旅行手册。"

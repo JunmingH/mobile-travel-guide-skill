@@ -1,0 +1,37 @@
+.pwa-settings-trigger{display:grid;place-items:center;flex-shrink:0;min-width:44px;min-height:44px;padding:10px;border:0;border-radius:50%;background:#fffdf8;color:#24664f}
+.pwa-settings-trigger svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round}
+.pwa-cache-banner{display:flex;align-items:center;justify-content:space-between;gap:12px;background:#e6eee5;color:#315641;border-radius:14px;padding:14px 16px;margin:16px 0;font:14px/1.6 -apple-system,BlinkMacSystemFont,sans-serif}
+.pwa-cache-banner button{flex-shrink:0;min-height:44px;padding:8px 10px;color:inherit;border:1px solid #a9baac;border-radius:10px;background:transparent}
+.pwa-settings{width:min(540px,calc(100% - 24px));max-height:calc(var(--phone-usable-height,100dvh) - 36px - env(safe-area-inset-top));margin:auto;border:0;border-radius:24px;padding:20px;background:#f5f3ed;color:#273d32;font:16px/1.7 -apple-system,BlinkMacSystemFont,sans-serif;overflow-y:auto;overscroll-behavior:contain}
+.pwa-settings::backdrop{background:#10231d99;backdrop-filter:blur(5px)}
+.pwa-settings>header{display:flex;align-items:center;justify-content:space-between;gap:12px}.pwa-settings h2{font-size:24px;margin:0}.pwa-settings h3{font-size:18px;margin:0 0 8px}.pwa-settings small{font-size:11px;letter-spacing:.14em;opacity:.7}
+.pwa-settings section{margin-top:20px;padding-top:16px;border-top:1px solid #bcc8ba}.pwa-settings p{margin:8px 0}.pwa-settings ol{padding-left:22px}.pwa-settings li{margin:8px 0}
+.pwa-settings button{min-height:44px;min-width:44px;padding:8px 12px;border:1px solid #b8c6b6;border-radius:12px;background:#fffdf8;color:#274d39;font-size:15px}.pwa-appearance{display:flex;flex-wrap:wrap;gap:8px}.pwa-settings [aria-pressed=true]{background:#285b45;color:#fff}
+.pwa-settings [hidden]{display:none!important}
+@media(max-width:800px){body.atlas-ui .atlas-topbar{padding-left:12px!important;padding-right:12px!important;gap:6px!important}body.atlas-ui .atlas-topbar .atlas-breadcrumb{display:none!important}body.atlas-ui .atlas-topbar .atlas-search-trigger{margin-left:auto!important}.pwa-cache-banner{font-size:13px;padding:12px}.pwa-settings{padding-bottom:calc(20px + env(safe-area-inset-bottom))}}
+/* Explicit dark surfaces retain original photographs and map colours. */
+body.atlas-ui[data-app-theme=dark]{background:#18251f!important;color:#e9eee5!important;--color-sand:#25362c;--color-paper:#26382e;--color-ink:#edf2e9;--color-muted:#b6c4b8;--paper:#25362c;--ink:#edf2e9;--muted:#b6c4b8}
+body.atlas-ui[data-app-theme=dark] :is(.atlas-topbar,.atlas-mobile-dock,.atlas-sidebar,.atlas-directory-head,.atlas-search,.pwa-settings){background:#1c2b23!important;color:#edf2e9!important;border-color:#435647!important}
+body.atlas-ui[data-app-theme=dark] :is(.atlas-menu-toggle,.atlas-search-trigger,.pwa-settings-trigger,.atlas-directory-close,.atlas-sidebar nav a,.complete-directory-tools button,.pwa-settings button){background:#2c4033!important;color:#edf2e9!important;border-color:#53674f!important}
+body.atlas-ui[data-app-theme=dark] :is(.atlas-breadcrumb,.atlas-breadcrumb b,.atlas-directory-head h2,.atlas-directory-head p,.atlas-sidebar nav a>span,.atlas-mobile-dock span,.atlas-mobile-dock svg){color:#dbe7d9!important}
+body.atlas-ui[data-app-theme=dark] :is(.pwa-cache-banner,.atlas-countdown,.atlas-quickline,.atlas-day-list,.atlas-bottom-note){background:#25382c!important;color:#dce8d8!important}
+body.atlas-ui[data-app-theme=dark] #atlas-main :is(.section-heading h2,.section-heading p,.atlas-section-title h2,.atlas-section-title span,h3,h4,.atlas-fold-title,.atlas-fold-meta,.day>summary b,.day>summary em,.countdown-heading>span,.countdown-status,.countdown-digits b,.countdown-foot,.atlas-day-list a,.atlas-day-list b,.atlas-day-list small){color:#e0e9dc!important}
+body.atlas-ui[data-app-theme=dark] #atlas-main :is(details.atlas-fold,summary.atlas-fold-summary,.day,.day-detail,.restaurant,.restaurant-body,.hotel-card,.sight-card,.shop-row,.movement-card,.vocab-items>div,.phrase-grid>div,.booking-card,.tips-grid>div,.snack-card,.menu-guide-grid>article,.menu-editorial,.menu-primer-grid>div,.photo-note,.photo-note-grid>div,.transport-comparison){background:#26382e!important;color:#e0e9dc!important;border-color:#405646!important;box-shadow:none!important}
+body.atlas-ui[data-app-theme=dark] #atlas-main :is(p,li,dt,dd,small,em,strong,span[lang],div[lang],p[lang]){color:inherit}
+body.atlas-ui[data-app-theme=dark] #atlas-main :is(a,.speech-link){color:#aadabb!important}
+body.atlas-ui[data-app-theme=dark] #top :is(p,span,em,strong,a){color:#fff!important}
+body.atlas-ui[data-app-theme=dark] :is(.trip-mode-panel,.trip-mode-header,.trip-mode-content,.itinerary-customizer__panel,.itinerary-customizer__head,.itinerary-customizer__body,.trip-ticket-panel,.trip-ticket-preview>section){background:#1c2c23!important;color:#e4eddf!important}
+body.atlas-ui[data-app-theme=dark] :is(.trip-stop,.trip-shopping-tip,.trip-shot,.trip-photo-card,.trip-mode-day,.trip-view-tabs,.trip-view-tabs button,.trip-mode-close,.expense-app,.expense-form,.ledger-members,.settlement-box,.exchange-tool,.exchange-tool-body,.expense-list article,.custom-step,.custom-request,.custom-timeline article,.custom-days button,.custom-add-form,.custom-freeform,.custom-request-list article){background:#293b30!important;color:#e4eddf!important;border-color:#46604c!important}
+body.atlas-ui[data-app-theme=dark] :is(.trip-mode-panel,.itinerary-customizer__panel,.expense-app,.trip-ticket-panel) :is(h2,h3,h4,b,strong,small,span,p,label,summary,legend,em){color:inherit!important}
+body.atlas-ui[data-app-theme=dark] :is(input,textarea,select){background:#17271e!important;color:#eff4e9!important;border-color:#5a715a!important;color-scheme:dark}
+body.atlas-ui[data-app-theme=dark] :is(input,textarea)::placeholder{color:#a7b7a5!important}
+body.atlas-ui[data-app-theme=dark] :is(.trip-view-tabs .is-active,.trip-mode-day.is-active,.pwa-settings [aria-pressed=true]){background:#4b6b51!important;color:#fff!important}
+body.atlas-ui[data-app-theme=dark] .atlas-search-results a{background:#2c4033!important;color:#eaf0e4!important}
+/* Verified dark-mode corrections for inherited light cards and ledger controls. */
+body.atlas-ui[data-app-theme=dark] #atlas-main #sights details.mobile-section-fold{background:#26382e!important;border-color:#405646!important}
+body.atlas-ui[data-app-theme=dark] #atlas-main #sights :is(.sight-facts,.sight-facts span){background:#334a39!important;color:#edf2e9!important;border-color:#536b55!important}
+body.atlas-ui[data-app-theme=dark] #atlas-main #sights .sight-copy>a{background:#304936!important;color:#c3ebcf!important;border-color:#5a775e!important}
+body.atlas-ui[data-app-theme=dark] #atlas-main #sights summary svg{background:#334a39!important;color:#dce8d8!important}
+body.atlas-ui[data-app-theme=dark] .shared-ledger :is(.ledger-sync,.ledger-sync [data-sync]){color:#c1d0be!important}
+body.atlas-ui[data-app-theme=dark] .shared-ledger :is(button,.exchange-result,.split-members label,.expense-totals>span,.member-initial){background:#304936!important;color:#edf2e9!important;border-color:#536b55!important}
+body.atlas-ui[data-app-theme=dark] .shared-ledger input::file-selector-button{background:#304936!important;color:#edf2e9!important;border-color:#536b55!important}

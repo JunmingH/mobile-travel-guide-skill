@@ -1,0 +1,269 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#073f35">
+  <title>旅行手册定制问卷</title>
+  <style>
+    :root {
+      --forest:#073f35; --forest-2:#0e5a49; --leaf:#16735d; --mint:#dce9e1;
+      --paper:#f4efe5; --paper-2:#fbf8f1; --ink:#113a32; --muted:#66756f;
+      --gold:#d7aa55; --line:rgba(17,58,50,.16); --shadow:0 24px 70px rgba(5,48,40,.14);
+      --serif:"Songti SC","STSong","Noto Serif SC",Georgia,serif;
+      --sans:"PingFang SC","Microsoft YaHei","Noto Sans SC",system-ui,sans-serif;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth;background:var(--forest)}
+    body{margin:0;color:var(--ink);background:var(--paper);font-family:var(--sans);-webkit-font-smoothing:antialiased}
+    button,input,select,textarea{font:inherit;color:inherit}
+    button{cursor:pointer}
+    .hero{min-height:46vh;color:#fff;background:
+      radial-gradient(circle at 78% 28%,rgba(71,157,127,.42),transparent 32%),
+      radial-gradient(circle at 16% 80%,rgba(215,170,85,.13),transparent 28%),
+      linear-gradient(135deg,#052f29 0%,#0a4a3d 58%,#06342e 100%);position:relative;overflow:hidden}
+    .hero:before,.hero:after{content:"";position:absolute;border:1px solid rgba(255,255,255,.1);border-radius:50%;width:46vw;height:46vw;right:-12vw;top:-22vw}
+    .hero:after{width:28vw;height:28vw;right:14vw;top:8vw;border-color:rgba(215,170,85,.16)}
+    .hero-inner{width:min(1180px,calc(100% - 40px));margin:auto;padding:54px 0 72px;position:relative;z-index:1}
+    .eyebrow{display:flex;align-items:center;gap:14px;color:#efd39b;font-size:12px;font-weight:700;letter-spacing:.2em;text-transform:uppercase}
+    .eyebrow:before{content:"";width:54px;height:1px;background:var(--gold)}
+    h1{font-family:var(--serif);font-size:clamp(48px,8vw,112px);font-weight:500;line-height:.92;letter-spacing:-.05em;margin:58px 0 22px;max-width:900px;text-wrap:balance}
+    .hero p{max-width:660px;font-size:18px;line-height:1.7;color:rgba(255,255,255,.78);text-wrap:pretty}
+    .hero-note{display:inline-flex;align-items:center;gap:10px;margin-top:22px;padding:11px 16px;border:1px solid rgba(255,255,255,.22);border-radius:999px;background:rgba(3,39,33,.45);font-size:13px;color:#fff}
+    main{width:min(1180px,calc(100% - 40px));margin:-34px auto 0;position:relative;z-index:2;padding-bottom:100px}
+    .progress{display:grid;grid-template-columns:repeat(3,1fr);background:rgba(255,255,255,.94);border-radius:22px;box-shadow:var(--shadow);overflow:hidden}
+    .progress div{padding:22px 24px;border-right:1px solid var(--line)}
+    .progress div:last-child{border:0}.progress b{display:block;font-family:var(--serif);font-size:19px}.progress small{color:var(--muted)}
+    .progress .active{background:var(--mint)}.progress em{font-style:normal;color:var(--gold);font-weight:800;margin-right:8px}
+    form{margin-top:34px}.section{margin:28px 0 0;padding:clamp(24px,4vw,54px);background:var(--paper-2);border:1px solid rgba(17,58,50,.12);border-radius:28px;box-shadow:0 18px 60px rgba(18,59,50,.07)}
+    .section-head{display:flex;justify-content:space-between;gap:30px;align-items:end;padding-bottom:24px;border-bottom:1px solid var(--line)}
+    .section-no{font-family:var(--serif);font-size:48px;font-style:italic;color:var(--gold);line-height:1}
+    h2{font-family:var(--serif);font-size:clamp(30px,4.2vw,54px);font-weight:500;line-height:1.1;margin:6px 0 0;letter-spacing:-.035em}
+    .section-head p{max-width:430px;margin:0;color:var(--muted);line-height:1.65}
+    .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px;margin-top:30px}
+    .field{display:flex;flex-direction:column;gap:9px}.field.full{grid-column:1/-1}.field label,.field>span{font-weight:700;font-size:14px}.hint{font-size:12px;color:var(--muted);font-weight:400}.required{color:#c34f38;font-weight:800;margin-left:3px}.field-note{display:block;margin-top:-2px;color:var(--muted);font-size:12px;line-height:1.55;font-weight:400}.label-line{display:flex;justify-content:space-between;align-items:center;gap:12px}.mode-link{border:0;background:transparent;color:var(--leaf);padding:3px 0;font-size:13px;font-weight:750;text-decoration:underline;text-underline-offset:4px}.mode-link:hover{color:var(--forest)}.recommend-mode .required{display:none}.recommend-mode #destination{background:var(--mint);color:var(--muted);border-style:dashed}
+    input,select,textarea{width:100%;border:1px solid rgba(17,58,50,.19);border-radius:15px;background:#fff;padding:15px 16px;outline:none;transition:border-color .18s,box-shadow .18s}
+    input,select{min-height:52px}textarea{min-height:112px;resize:vertical;line-height:1.6}
+    .date-control{position:relative}.date-control>input[type="text"]{padding-right:58px}.date-picker-native{position:absolute!important;width:1px!important;height:1px!important;opacity:0!important;pointer-events:none!important;padding:0!important;border:0!important}
+    .calendar-button{position:absolute;right:7px;top:50%;transform:translateY(-50%);width:40px;height:40px;border:0;border-radius:11px;background:var(--mint);color:var(--forest);display:grid;place-items:center;padding:0}.calendar-button svg{width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:1.8}.calendar-button:active{transform:translateY(-50%) scale(.96)}
+    input:focus,select:focus,textarea:focus{border-color:var(--leaf);box-shadow:0 0 0 4px rgba(22,115,93,.12)}
+    .choice-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+    .choice{position:relative}.choice input{position:absolute;opacity:0;pointer-events:none}
+    .choice label{display:flex;min-height:54px;align-items:center;justify-content:center;text-align:center;padding:10px 12px;border:1px solid rgba(17,58,50,.18);border-radius:14px;background:#fff;font-size:14px;transition:background .18s,color .18s,border-color .18s,transform .12s}
+    .choice input:checked+label{background:var(--forest-2);border-color:var(--forest-2);color:#fff;box-shadow:0 10px 24px rgba(7,63,53,.18)}
+    .choice label:active,.btn:active{transform:scale(.96)}
+    details.optional{margin-top:28px;border-radius:28px;background:#e5ece7;border:1px solid rgba(17,58,50,.13);overflow:hidden}
+    details.optional>summary{list-style:none;display:flex;align-items:center;justify-content:space-between;gap:20px;padding:28px clamp(24px,4vw,52px);cursor:pointer;background:var(--forest);color:#fff}
+    details.optional>summary::-webkit-details-marker{display:none}.optional-title b{display:block;font-family:var(--serif);font-size:clamp(25px,3vw,38px);font-weight:500}.optional-title small{display:block;margin-top:6px;color:rgba(255,255,255,.66)}
+    .toggle{width:48px;height:48px;border-radius:50%;background:var(--paper);color:var(--forest);display:grid;place-items:center;font-size:26px;line-height:1;flex:0 0 auto;transition:transform .22s}
+    details[open] .toggle{transform:rotate(45deg)}.optional-body{padding:8px clamp(24px,4vw,52px) 46px}
+    .subhead{margin:34px 0 14px;font-family:var(--serif);font-size:24px;font-weight:600}
+    .booking-note{grid-column:1/-1;display:grid;grid-template-columns:auto 1fr;gap:14px;align-items:start;padding:18px 20px;border-radius:18px;background:var(--mint);border:1px solid rgba(17,58,50,.12)}
+    .booking-note b{display:grid;place-items:center;width:30px;height:30px;border-radius:50%;background:var(--forest);color:#fff;font-family:var(--serif);font-size:17px}.booking-note strong{display:block;margin:1px 0 5px;font-size:14px}.booking-note p{margin:0;color:var(--muted);font-size:13px;line-height:1.65}
+    .conditional{display:none}.conditional.show{display:flex}.conditional-block{display:none;grid-column:1/-1}.conditional-block.show{display:grid}.decision-grid{grid-template-columns:repeat(2,minmax(0,1fr));margin-top:0;padding:20px;border-radius:20px;background:rgba(220,233,225,.55);border:1px solid var(--line)}
+    .generate{margin-top:28px;padding:28px;border-radius:28px;background:var(--forest);color:#fff;box-shadow:var(--shadow)}
+    .generate-inner{display:grid;grid-template-columns:1fr auto;gap:28px;align-items:center}.generate h3{font-family:var(--serif);font-size:clamp(27px,3vw,42px);font-weight:500;margin:0 0 8px}.generate p{margin:0;color:rgba(255,255,255,.7);line-height:1.6}
+    .buttons{display:flex;flex-wrap:wrap;gap:10px}.btn{border:0;border-radius:999px;padding:14px 20px;min-height:48px;font-weight:750;transition:transform .12s,background .18s}.btn.primary{background:var(--gold);color:#123b33}.btn.secondary{background:#fff;color:var(--forest)}.btn.ghost{background:transparent;color:#fff;border:1px solid rgba(255,255,255,.32)}
+    .result{display:none;margin-top:28px;padding:clamp(24px,4vw,48px);border-radius:28px;background:#fff;border:1px solid var(--line);box-shadow:var(--shadow)}.result.show{display:block}.result h3{font-family:var(--serif);font-size:34px;margin:0 0 8px}.result>p{color:var(--muted)}
+    .request{white-space:pre-wrap;line-height:1.75;background:var(--paper);padding:22px;border-radius:18px;border:1px solid var(--line);margin:20px 0;max-height:430px;overflow:auto}
+    .result-actions{display:flex;gap:10px;flex-wrap:wrap}.status{font-size:13px;color:var(--leaf);font-weight:700;min-height:20px;margin-top:10px}
+    footer{background:#052f29;color:rgba(255,255,255,.65);padding:32px 20px;text-align:center;font-size:13px}
+    @media(max-width:760px){
+      .hero{min-height:auto}.hero-inner{padding:38px 0 66px}.eyebrow:before{width:32px}h1{margin-top:44px;font-size:54px}.hero p{font-size:16px}
+      main{width:min(100% - 24px,1180px);margin-top:-28px}.progress div{padding:16px 12px}.progress b{font-size:15px}.progress small{font-size:11px}.progress em{display:block;margin:0 0 3px}
+      .section{border-radius:22px;padding:24px 18px}.section-head{display:block}.section-head p{margin-top:14px}.section-no{font-size:38px}.grid{grid-template-columns:1fr;gap:18px}.field.full{grid-column:auto}
+      .choice-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.choice label{font-size:13px;min-height:52px}input,select,textarea{font-size:16px}.decision-grid{grid-template-columns:1fr;padding:16px}.booking-note{padding:16px}
+      details.optional{border-radius:22px}details.optional>summary{padding:22px 18px}.optional-body{padding:4px 18px 32px}.toggle{width:42px;height:42px}
+      .generate{padding:24px 18px}.generate-inner{grid-template-columns:1fr}.buttons{display:grid;grid-template-columns:1fr}.btn{width:100%}.result{border-radius:22px;padding:24px 18px}
+    }
+    @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
+  </style>
+</head>
+<body>
+  <header class="hero">
+    <div class="hero-inner">
+      <div class="eyebrow">Travel handbook · Quick intake</div>
+      <h1>先说目的地，<br>剩下的交给我们。</h1>
+      <p>核心信息放在前面，偏好与预订细节可以稍后补充。目的地还没有想好，也可以先说需求，让 Agent 反过来推荐。</p>
+      <div class="hero-note">所有问题均可跳过 · 目的地也可以暂不确定</div>
+    </div>
+  </header>
+
+  <main>
+    <nav class="progress" aria-label="填写进度">
+      <div class="active"><b><em>01</em>基本信息</b><small>先确定目的地</small></div>
+      <div><b><em>02</em>可选偏好</b><small>想填再填写</small></div>
+      <div><b><em>03</em>生成需求</b><small>交给 Agent</small></div>
+    </nav>
+
+    <form id="travelForm">
+      <section class="section" aria-labelledby="coreTitle">
+        <div class="section-head">
+          <div><div class="section-no">01</div><h2 id="coreTitle">先确定这趟旅行。</h2></div>
+          <p>有目的地时直接生成定制需求；没有目的地时，可以先填写日期、预算或偏好，让 Agent 推荐候选目的地。</p>
+        </div>
+        <div class="grid">
+          <div class="field full" id="destinationField">
+            <div class="label-line"><label for="destination">目的地<span class="required" aria-label="必填">*</span> <span class="hint">例如“巴黎”“罗马”或多地组合</span></label><button class="mode-link" id="destinationMode" type="button">还没想好？让 Agent 推荐</button></div>
+            <input id="destination" name="destination" required autocomplete="off" placeholder="例如：巴黎">
+          </div>
+          <div class="field"><label for="startDate">出发日期 <span class="hint">可跳过 · YYYY-MM-DD</span></label><div class="date-control"><input id="startDate" name="startDate" type="text" inputmode="numeric" autocomplete="off" maxlength="10" pattern="\d{4}-\d{2}-\d{2}" placeholder="例如：2026-09-18"><input class="date-picker-native" id="startDatePicker" type="date" tabindex="-1" aria-hidden="true"><button class="calendar-button" type="button" data-picker="startDatePicker" aria-label="选择出发日期"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3v3M18 3v3M4 8h16M5 5h14a1 1 0 0 1 1 1v14H4V6a1 1 0 0 1 1-1Z"/></svg></button></div></div>
+          <div class="field"><label for="endDate">返回日期 <span class="hint">可跳过 · YYYY-MM-DD</span></label><div class="date-control"><input id="endDate" name="endDate" type="text" inputmode="numeric" autocomplete="off" maxlength="10" pattern="\d{4}-\d{2}-\d{2}" placeholder="例如：2026-09-26"><input class="date-picker-native" id="endDatePicker" type="date" tabindex="-1" aria-hidden="true"><button class="calendar-button" type="button" data-picker="endDatePicker" aria-label="选择返回日期"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3v3M18 3v3M4 8h16M5 5h14a1 1 0 0 1 1 1v14H4V6a1 1 0 0 1 1-1Z"/></svg></button></div></div>
+          <div class="field"><label for="days">旅行天数 <span class="hint">日期未定时可填写</span></label><input id="days" name="days" type="number" min="1" max="60" inputmode="numeric" placeholder="留空则由 Agent 判断"></div>
+          <div class="field"><label for="travelers">人数 <span class="hint">默认 2 名成人</span></label><input id="travelers" name="travelers" type="number" min="1" max="30" inputmode="numeric" placeholder="2"></div>
+          <div class="field"><label for="relationship">同行关系</label><select id="relationship" name="relationship"><option value="">由 Agent 按普通同行处理</option><option>情侣或夫妻</option><option>朋友</option><option>家庭</option><option>亲子</option><option>带长辈</option><option>独自旅行</option><option>其他</option></select></div>
+          <div class="field full"><span>旅行节奏 <span class="hint">默认：均衡偏轻松</span></span><div class="choice-grid">
+            <div class="choice"><input type="radio" id="paceDefault" name="pace" value="由 Agent 决定" checked><label for="paceDefault">由 Agent 决定</label></div>
+            <div class="choice"><input type="radio" id="paceRelax" name="pace" value="轻松"><label for="paceRelax">轻松</label></div>
+            <div class="choice"><input type="radio" id="paceBalanced" name="pace" value="均衡"><label for="paceBalanced">均衡</label></div>
+            <div class="choice"><input type="radio" id="paceFull" name="pace" value="充实"><label for="paceFull">充实</label></div>
+          </div>
+          <div class="field"><label for="budgetLevel">预算定位</label><select id="budgetLevel" name="budgetLevel"><option value="由 Agent 给出主流预算">由 Agent 给出主流预算</option><option>经济实用</option><option>舒适型</option><option>品质型</option><option>高端型</option></select></div>
+          <div class="field"><label for="budgetAmount">整趟总预算 <span class="hint">可跳过</span></label><input id="budgetAmount" name="budgetAmount" placeholder="例如：两人总计 20,000 元，不含购物"></div>
+          <aside class="booking-note"><b>i</b><div><strong>已经订好机票或酒店？</strong><p>提交需求时，可以直接上传订单截图，或告诉 Agent 航班号和酒店名称。还没确定也没关系，手册会先把相关位置留空并标记为“待确认”，不会影响其他内容生成。</p></div></aside>
+        </div>
+      </section>
+
+      <details class="optional" id="optionalPanel">
+        <summary><span class="optional-title"><b>继续补充偏好</b><small>兴趣与特殊需求均为可选</small></span><span class="toggle" aria-hidden="true">＋</span></summary>
+        <div class="optional-body">
+          <h3 class="subhead">最想把时间留给什么？ <span class="hint">建议选择 3–5 项</span></h3>
+          <div class="choice-grid" id="interestChoices">
+            <div class="choice"><input type="checkbox" id="i1" name="interests" value="经典景点"><label for="i1">经典景点</label></div>
+            <div class="choice"><input type="checkbox" id="i2" name="interests" value="美食"><label for="i2">美食</label></div>
+            <div class="choice"><input type="checkbox" id="i3" name="interests" value="购物"><label for="i3">购物</label></div>
+            <div class="choice"><input type="checkbox" id="i4" name="interests" value="自然风景"><label for="i4">自然风景</label></div>
+            <div class="choice"><input type="checkbox" id="i5" name="interests" value="历史文化"><label for="i5">历史文化</label></div>
+            <div class="choice"><input type="checkbox" id="i6" name="interests" value="城市漫游"><label for="i6">城市漫游</label></div>
+            <div class="choice"><input type="checkbox" id="i7" name="interests" value="拍照与视觉氛围"><label for="i7">拍照与氛围</label></div>
+            <div class="choice"><input type="checkbox" id="i8" name="interests" value="有辨识度的当地体验"><label for="i8">特色体验</label></div>
+            <div class="choice"><input type="checkbox" id="i9" name="interests" value="海岛与沙滩"><label for="i9">海岛与沙滩</label></div>
+            <div class="choice"><input type="checkbox" id="i10" name="interests" value="夜生活"><label for="i10">夜生活</label></div>
+            <div class="choice"><input type="checkbox" id="i11" name="interests" value="亲子"><label for="i11">亲子</label></div>
+            <div class="choice"><input type="checkbox" id="i12" name="interests" value="户外运动"><label for="i12">户外运动</label></div>
+            <div class="choice"><input type="checkbox" id="i13" name="interests" value="咖啡与甜品"><label for="i13">咖啡与甜品</label></div>
+            <div class="choice"><input type="checkbox" id="i14" name="interests" value="潮流街区"><label for="i14">潮流街区</label></div>
+            <div class="choice"><input type="checkbox" id="i15" name="interests" value="设计、艺术与展览"><label for="i15">设计与展览</label></div>
+            <div class="choice"><input type="checkbox" id="i16" name="interests" value="美妆、时尚与买手店"><label for="i16">美妆与时尚</label></div>
+            <div class="choice"><input type="checkbox" id="i17" name="interests" value="夜景、音乐与酒吧"><label for="i17">夜景与酒吧</label></div>
+            <div class="choice"><input type="checkbox" id="i18" name="interests" value="影视与流行文化"><label for="i18">影视与流行文化</label></div>
+            <div class="choice"><input type="checkbox" id="i19" name="interests" value="二次元、动漫与游戏文化"><label for="i19">二次元与游戏</label></div>
+            <div class="choice"><input type="checkbox" id="i20" name="interests" value="K-pop、偶像与韩流文化"><label for="i20">K-pop 与韩流</label></div>
+          </div>
+          <div class="grid">
+            <div class="field"><label for="mustGo">特别想去</label><textarea id="mustGo" name="mustGo" placeholder="地点、餐厅、活动都可以；空着则安排主流经典"></textarea></div>
+            <div class="field"><label for="avoid">明确不想去</label><textarea id="avoid" name="avoid" placeholder="例如：不去主题乐园、不安排长途徒步"></textarea></div>
+          </div>
+
+          <h3 class="subhead">需要特别照顾的地方</h3>
+          <div class="grid">
+            <div class="field full"><label for="constraints">健康、饮食、行动或时间限制</label><textarea id="constraints" name="constraints" placeholder="例如：不喜欢早起、控制步行量、海鲜过敏"></textarea></div>
+<div class="field full"><label for="notes">其他想告诉 Agent 的内容</label><textarea id="notes" name="notes" placeholder="用自然语言说就好，例如：第一次去，重要景点不要遗漏；喜欢特色美食，也愿意去值得体验的热门店。"></textarea></div>
+          </div>
+        </div>
+      </details>
+
+      <section class="generate" aria-labelledby="generateTitle">
+        <div class="generate-inner">
+          <div><h3 id="generateTitle">信息够用了，就交给 Agent。</h3><p>已经决定去哪里，直接整理手册需求；还没决定，就先让 Agent 推荐三个适合的目的地。</p></div>
+          <div class="buttons"><button class="btn primary" id="submitButton" type="submit">整理手册需求</button></div>
+        </div>
+      </section>
+    </form>
+
+    <section class="result" id="result" aria-live="polite">
+      <h3 id="resultTitle">你的旅行手册需求</h3>
+      <p>复制后发给任意支持该 Skill 的 Agent。</p>
+      <div class="request" id="requestText"></div>
+      <div class="result-actions"><button class="btn primary" id="copyButton" type="button">复制给 Agent</button></div>
+      <div class="status" id="status"></div>
+    </section>
+  </main>
+  <footer>Travel Handbook Intake · 信息仅保存在当前设备，可随时清除浏览器数据</footer>
+
+  <script>
+  (()=>{
+    const form=document.getElementById('travelForm'), key='travel-handbook-intake-v2';
+    const $=id=>document.getElementById(id);
+    const setMode=(recommend,focus=true)=>{
+      form.dataset.mode=recommend?'recommend':'handbook';
+      $('destinationField').classList.toggle('recommend-mode',recommend);
+      $('destination').required=!recommend;
+      $('destination').disabled=recommend;
+      $('destination').placeholder=recommend?'将根据日期、预算与偏好推荐目的地':'例如：巴黎';
+      $('destinationMode').textContent=recommend?'我已经有目的地':'还没想好？让 Agent 推荐';
+      $('submitButton').textContent=recommend?'整理目的地推荐需求':'整理手册需求';
+      if(!recommend&&focus)$('destination').focus();
+    };
+    const values=()=>{
+      const fd=new FormData(form), data={};
+      for(const [k,v] of fd.entries()) k==='interests'?(data[k]??=[]).push(v):data[k]=v.trim?.()??v;
+      data.interests??=[]; data.requestMode=form.dataset.mode||'handbook'; data.schema='travel-handbook-super-private-intake/1.1';
+      data.transportStatus='pending';
+      data.stayStatus='pending';
+      data.budgetPlan={level:data.budgetLevel||'',totalTrip:data.budgetAmount||''};
+      data.createdAt=new Date().toISOString();
+      return data;
+    };
+    const save=()=>localStorage.setItem(key,JSON.stringify(values()));
+    const restore=()=>{
+      try{const data=JSON.parse(localStorage.getItem(key)||'{}'); Object.entries(data).forEach(([name,value])=>{
+        const controls=form.elements[name]; if(!controls)return;
+        if(name==='interests'){[...controls].forEach(c=>c.checked=value.includes(c.value));return;}
+        if(controls instanceof RadioNodeList){[...controls].forEach(c=>c.checked=c.value===value);return;}
+        controls.value=value;
+      }); setMode(data.requestMode==='recommend',false);}catch(e){setMode(false,false)}
+    };
+    const text=data=>{
+      const destination=data.destination||'（请填写目的地）';
+      const date=data.startDate?(data.endDate?`${data.startDate} 至 ${data.endDate}`:`${data.startDate} 出发`):(data.days?`${data.days} 天，日期未定`:'日期与天数由 Agent 根据目的地决定');
+      const travelers=data.travelers?`${data.travelers} 人${data.relationship?`，${data.relationship}`:''}`:`人数未填写，按 2 名成人的普通同行方案处理`;
+      const interests=data.interests.length?data.interests.join('、'):'未指定，按经典地标、美食、潮流街区、好逛购物与视觉氛围的年轻旅行主流组合安排';
+      const lines=[
+        `请使用 build-personalized-travel-guide-open-source Skill，先为我拟一份 ${destination} 的逐日行程草案。此阶段不要研究或生成完整手册；等我确认草案后，再继续制作完整旅行手册。`,
+        '',`【基础信息】`,`旅行时间：${date}`,`旅行者：${travelers}`,`节奏：${data.pace||'由 Agent 决定'}`,
+        '',`【预算】`,`预算定位：${data.budgetLevel||'由 Agent 给出主流预算'}`,`整趟总预算：${data.budgetAmount||'未指定，由 Agent 按主流方案估算'}`,`兴趣重点：${interests}`,
+        `交通和住宿不需要搜索或推荐。如果我随消息上传了订单截图，或另外提供航班号、酒店名称及日期，请提取并整理进手册；未提供时保持“待确认”，不要阻塞行程生成。`,
+        '',`【个性化要求】`,`特别想去：${data.mustGo||'未指定'}`,`明确避开：${data.avoid||'未指定'}`,`限制与照顾：${data.constraints||'未指定'}`,`其他说明：${data.notes||'未指定'}`,
+        '',`请把我选择的兴趣真正用于筛选地点和安排时间：主要行程中约三分之二的可选活动应直接匹配这些兴趣，避免为了填满模块加入低相关、重复或到处都能体验的项目。未指定偏好时，在保留首次到访经典内容的基础上，适度偏向中国年轻旅行者普遍更感兴趣的美食、潮流街区、设计审美、购物、拍照氛围和轻松夜间体验；不排斥网红店或热门打卡点，按兴趣匹配度、路线、排队时间、预算和体验价值筛选，热度高低本身不作为入选或排除依据；无需为此增加额外的大范围搜索。所有未填写内容使用可靠、路线顺畅的默认方案。动态价格与开放信息不能可靠核验时使用保守表达，不得编造。Google Maps 评分查不到就省略，不要单独反复搜索。`
+      ]; return lines.join('\n');
+    };
+    const recommendationText=data=>{
+      const date=data.startDate?(data.endDate?`${data.startDate} 至 ${data.endDate}`:`${data.startDate} 出发`):(data.days?`${data.days} 天，日期未定`:'日期与天数未定');
+      const travelers=data.travelers?`${data.travelers} 人${data.relationship?`，${data.relationship}`:''}`:'人数未定';
+      const interests=data.interests.length?data.interests.join('、'):'未指定，请采用适合第一次旅行的主流组合';
+      return [
+        '我还没有确定目的地。请先根据以下需求推荐 3 个真正有区别、适合执行的旅行目的地；此阶段不要生成完整旅行手册。',
+        '',`【旅行条件】`,`时间：${date}`,`旅行者：${travelers}`,`节奏：${data.pace||'由 Agent 决定'}`,`预算定位：${data.budgetLevel||'由 Agent 给出主流预算'}`,`整趟总预算：${data.budgetAmount||'未指定'}`,`兴趣：${interests}`,
+        `特别想要：${data.mustGo||'未指定'}`,`明确避开：${data.avoid||'未指定'}`,`限制与照顾：${data.constraints||'未指定'}`,`其他说明：${data.notes||'未指定'}`,
+        '',`【推荐要求】`,`请为每个候选目的地说明：为什么匹配、建议天数、最适合的玩法、季节与天气适配，以及有依据的当地旅行预算区间。无法核验的动态信息不要编造。`,
+        `最后给出一个综合首选。等我选定目的地后，使用 build-personalized-travel-guide-open-source Skill 先给逐日行程草案；再等我确认草案后生成完整八模块手册。选定目的地不代表确认行程。`
+      ].join('\n');
+    };
+    const render=()=>{const data=values(),recommend=data.requestMode==='recommend';if(!recommend&&!data.destination){$('destination').focus();$('destination').reportValidity();return;} $('resultTitle').textContent=recommend?'你的目的地推荐需求':'你的旅行手册需求';$('requestText').textContent=recommend?recommendationText(data):text(data);$('result').classList.add('show');$('result').scrollIntoView({behavior:'smooth',block:'start'});save();};
+    form.addEventListener('input',save);form.addEventListener('change',save);form.addEventListener('submit',e=>{e.preventDefault();render()});
+    $('destinationMode').addEventListener('click',()=>{setMode(form.dataset.mode!=='recommend');save()});
+    document.querySelectorAll('.calendar-button').forEach(button=>button.addEventListener('click',()=>{const picker=$(button.dataset.picker);if(typeof picker.showPicker==='function')picker.showPicker();else picker.click()}));
+    [['startDatePicker','startDate'],['endDatePicker','endDate']].forEach(([pickerId,textId])=>{$(pickerId).addEventListener('change',()=>{$(textId).value=$(pickerId).value;save()});$(textId).addEventListener('change',()=>{if(/^\d{4}-\d{2}-\d{2}$/.test($(textId).value))$(pickerId).value=$(textId).value})});
+    $('copyButton').addEventListener('click',()=>{
+      const output=$('requestText'),value=output.textContent;
+      const helper=document.createElement('textarea');
+      helper.value=value;
+      helper.setAttribute('readonly','');
+      helper.style.cssText='position:fixed;left:-9999px;top:0;width:1px;height:1px;opacity:0';
+      document.body.appendChild(helper);
+      helper.focus();helper.select();helper.setSelectionRange(0,helper.value.length);
+      let copied=false;
+      try{copied=document.execCommand('copy')}catch(e){copied=false}
+      helper.remove();
+      if(copied){$('status').textContent='已复制，可以直接粘贴给 Agent。';return}
+      const range=document.createRange(),selection=getSelection();
+      range.selectNodeContents(output);selection.removeAllRanges();selection.addRange(range);
+      output.scrollIntoView({behavior:'smooth',block:'center'});
+      $('status').textContent='此环境禁止自动复制，已选中全部文字，请按 Ctrl+C；粘贴时按 Ctrl+V。';
+    });
+    restore();
+  })();
+  </script>
+</body>
+</html>
